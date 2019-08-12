@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>mtg_deck_organizer</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="bin\Release\netcoreapp2.2\deck_list.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MtgApiManager.Lib" Version="1.2.1" />
+  </ItemGroup>
+
+</Project>
