@@ -78,32 +78,7 @@ namespace mtg_deck_organizer
                 }
             }
 
-            foreach (var item in output)
-            {
-                Console.WriteLine(sets[item.Key] + ": ");
-                foreach (var card in item.Value)
-                {
-                    var colors = string.Empty;
-                    foreach (var color in card.Colors)
-                    {
-                        if (colors.Equals(string.Empty))
-                        {
-                            colors += color;
-                        }
-                        else
-                        {
-                            colors += ", " + color;
-                        }                        
-                    }
-
-                    if (colors.Equals(string.Empty))
-                    {
-                        colors = card.Type;
-                    }
-
-                    Console.WriteLine("\t" + $"{card.Name} <> {colors}");
-                }
-            }
+            WriteOutputToFile(output, sets);
         }
 
         static List<KeyValuePair<string, int>> GetSetCounts(Dictionary<string, List<Card>> cards, Dictionary<string, string> sets)
@@ -126,6 +101,40 @@ namespace mtg_deck_organizer
             }
 
             return counts.OrderByDescending(x => x.Value).ToList();
+        }
+
+        static void WriteOutputToFile(Dictionary<string, List<Card>> output, Dictionary<string, string> sets)
+        {
+            using (var writer = new StreamWriter(@"output.txt"))
+            {
+                foreach (var item in output)
+                {
+
+                    writer.WriteLine(sets[item.Key] + ": ");
+                    foreach (var card in item.Value)
+                    {
+                        var colors = string.Empty;
+                        foreach (var color in card.Colors)
+                        {
+                            if (colors.Equals(string.Empty))
+                            {
+                                colors += color;
+                            }
+                            else
+                            {
+                                colors += ", " + color;
+                            }
+                        }
+
+                        if (colors.Equals(string.Empty))
+                        {
+                            colors = card.Type;
+                        }
+
+                        writer.WriteLine("\t" + $"{card.Name} <> {colors}");
+                    }
+                }
+            }
         }
     }
 }
